@@ -83,7 +83,7 @@ class Parser:
         self.match('', TokenType.ID)
         self.match(':=', TokenType.SPSYMB)
         self.exp()
-        self.write_to_output_file('Repeat_Statement')
+        self.write_to_output_file('Assignment_Statement')
 
     def read_stmt(self):
         self.match('read', TokenType.RESWORD)
@@ -91,10 +91,16 @@ class Parser:
         self.write_to_output_file('Read_Statement')
 
     def write_stmt(self):
-        pass
+        self.match('write', TokenType.RESWORD)
+        self.exp()
+        self.write_to_output_file('Write_Statement')
 
     def exp(self):
-        pass
+        self.simple_exp()
+        if self.current_token.string_value == '<' or self.current_token.string_value == '=':
+            self.comparison_op()
+            self.simple_exp()
+        self.write_to_output_file('Expression')
 
     def simple_exp(self):
         pass
