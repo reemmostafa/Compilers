@@ -62,7 +62,15 @@ class Parser:
         self.write_to_output_file('Statement')
 
     def if_stmt(self):
-        pass
+        self.match('if', TokenType.RESWORD)
+        self.exp()
+        self.match('then', TokenType.RESWORD)
+        self.stmt_sequence()
+        if self.current_token.string_value == 'else':
+            self.match('else', TokenType.RESWORD)
+            self.stmt_sequence()
+        self.match('end', TokenType.RESWORD)
+        self.write_to_output_file('IF_Statement')
 
     def repeat_stmt(self):
         pass
