@@ -31,7 +31,6 @@ class Scanner:
         self._input_path = input_path
         self._output_path = output_path
         self._current_state = State.START
-        self._tokens_list = []
 
     def set_files(self,input_path,output_path):
         # use this function to change the path of input and output files
@@ -54,10 +53,6 @@ class Scanner:
 
         with open(self._output_path, 'a') as file:
             file.write(token+' : '+tokentype[t_type]+'\n')
-
-    def append_token(self, token, t_type):
-        # add token to tokens list
-        self._tokens_list.append(Token(token, t_type))
 
     def run(self):
         # the main function of the scanner
@@ -129,11 +124,8 @@ class Scanner:
             if tokentype == TokenType.ID and token in reserved_words:
                 tokentype = TokenType.RESWORD
             # self.write_token(token, tokentype)
-            self.append_token(token, tokentype)
+            yield Token(token, tokentype)
 
-    @property
-    def tokens(self):
-        return self._tokens_list
 
 if __name__ == "__main__":
     input_file = 'tiny_sample_code.txt'
