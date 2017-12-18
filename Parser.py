@@ -2,13 +2,17 @@ from Scanner import Scanner
 
 
 class Parser:
-    def __init__(self, Scanner, input_path='', output_path=''):
+    def __init__(self, scanner, input_path='', output_path=''):
         self._input_path = input_path
         self._output_path = output_path
-        Scanner.set_files(input_path, 'scanner_output.txt')
-        self.tokens = Scanner.run()
+        scanner.set_files(input_path, 'scanner_output.txt')
+        self.tokens = scanner.run()
         self.current_token = None
         self.advance_input()
+
+    def write_to_output_file(self,string):
+        with open(self._output_path, 'a') as file:
+            file.write(string + ' Found\n')
 
     def advance_input(self):
         try:
@@ -25,8 +29,8 @@ class Parser:
 
     def program(self):
         self.stmt_sequence()
-        with open(self._output_path, 'a') as file:
-            file.write('Program Found\n')
+        self.write_to_output_file('Program')
+
 
     def stmt_sequence(self):
         pass
@@ -75,3 +79,4 @@ if __name__ == "__main__":
     output_file = 'scanner_output.txt'
     scanner = Scanner()
     parser = Parser(scanner, input_file, output_file)
+    parser.start_parsing()
