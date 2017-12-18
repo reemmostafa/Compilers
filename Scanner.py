@@ -37,7 +37,7 @@ class Scanner:
         self._input_path = input_path
         self._output_path = output_path
 
-    def open_file(self):
+    def read_file(self):
         # open the input file and read it character by character
         with open(self._input_path) as file:
             while True:
@@ -57,7 +57,7 @@ class Scanner:
     def run(self):
         # the main function of the scanner
         # check characters according to DFA and determines token types
-        characters = self.open_file()
+        characters = self.read_file()
         end_of_file = False
         c = ''
         while not end_of_file:
