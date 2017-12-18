@@ -1,5 +1,6 @@
 from enum import Enum
 from Token import Token
+from Token import TokenType
 
 # enum for the states
 class State(Enum):
@@ -9,14 +10,6 @@ class State(Enum):
     INID = 4
     INASSIGN = 5
     DONE = 6
-
-
-# enum for the token types
-class TokenType(Enum):
-    RESWORD = 1
-    SPSYMB = 2
-    ID = 3
-    NUM = 4
 
 # set of reserved words
 reserved_words = {'if', 'then', 'else', 'end', 'repeat', 'until', 'read', 'write'}
@@ -54,7 +47,7 @@ class Scanner:
         with open(self._output_path, 'a') as file:
             file.write(token+' : '+tokentype[t_type]+'\n')
 
-    def run(self):
+    def run(self) -> Token:
         # the main function of the scanner
         # check characters according to DFA and determines token types
         characters = self.read_file()
@@ -131,4 +124,10 @@ if __name__ == "__main__":
     input_file = 'tiny_sample_code.txt'
     output_file = 'scanner_output.txt'
     scanner = Scanner(input_file, output_file)
-    scanner.run()
+    found = True
+    g = scanner.run()
+    while found:
+        try:
+            g.__next__()
+        except StopIteration:
+            break
