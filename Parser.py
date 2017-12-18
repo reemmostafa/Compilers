@@ -73,10 +73,17 @@ class Parser:
         self.write_to_output_file('IF_Statement')
 
     def repeat_stmt(self):
-        pass
+        self.match('repeat', TokenType.RESWORD)
+        self.stmt_sequence()
+        self.match('until', TokenType.RESWORD)
+        self.exp()
+        self.write_to_output_file('Repeat_Statement')
 
     def assign_stmt(self):
-        pass
+        self.match('', TokenType.ID)
+        self.match(':=', TokenType.SPSYMB)
+        self.exp()
+        self.write_to_output_file('Repeat_Statement')
 
     def read_stmt(self):
         self.match('read', TokenType.RESWORD)
