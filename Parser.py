@@ -119,7 +119,7 @@ class Parser:
         while self.current_token.string_value == '*' or self.current_token.string_value == '/':
             self.match(self.current_token.string_value, TokenType.SPSYMB)
             self.factor()
-        self.write_to_output_file('Term_Operator')
+        self.write_to_output_file('Term')
 
     def add_op(self):
         if self.current_token.string_value == '+' or self.current_token.string_value == '-':
@@ -135,11 +135,12 @@ class Parser:
             self.match('', TokenType.NUM)
         elif self.current_token.token_type == TokenType.ID:
             self.match('', TokenType.ID)
-        self.write_to_output_file('Factor_Operator')
-
+        self.write_to_output_file('Factor')
 
     def mul_op(self):
-        pass
+        if self.current_token.string_value == '*' or self.current_token.string_value == '/':
+            self.match(self.current_token.string_value, TokenType.SPSYMB)
+        self.write_to_output_file('Mul_Operator')
 
 if __name__ == "__main__":
     input_file = 'tiny_sample_code.txt'
