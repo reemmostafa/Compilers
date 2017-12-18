@@ -1,4 +1,5 @@
 from Scanner import Scanner
+from Token import TokenType
 
 
 class Parser:
@@ -31,7 +32,6 @@ class Parser:
         self.stmt_sequence()
         self.write_to_output_file('Program')
 
-
     def stmt_sequence(self):
         self.statement()
         while self.current_token.string_value == ';':
@@ -40,7 +40,18 @@ class Parser:
         self.write_to_output_file('Statement_Sequence')
 
     def statement(self):
-        pass
+        if self.current_token.string_value == 'if':
+            self.if_stmt()
+        elif self.current_token.string_value == 'repeat':
+            self.repeat_stmt()
+        elif self.current_token.token_type == TokenType.ID:
+            self.assign_stmt()
+        elif self.current_token.string_value == 'read':
+            self.read_stmt()
+        elif self.current_token.string_value == 'write':
+            self.write_stmt()
+        self.write_to_output_file('Statement')
+
 
     def if_stmt(self):
         pass
