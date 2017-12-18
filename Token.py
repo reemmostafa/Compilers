@@ -1,5 +1,5 @@
 class Token:
-    def __init__(self, token_type, string_value):
+    def __init__(self, string_value, token_type):
         self._type = token_type
         self._stringValue = string_value
 
