@@ -24,7 +24,7 @@ class Parser:
     def start_parsing(self):
         self.program()
 
-    def match(self):
+    def match(self,expected_token):
         pass
 
     def program(self):
@@ -33,7 +33,11 @@ class Parser:
 
 
     def stmt_sequence(self):
-        pass
+        self.statement()
+        while self.current_token.string_value == ';':
+            self.match(';')
+            self.statement()
+        self.write_to_output_file('Statement_Sequence')
 
     def statement(self):
         pass
