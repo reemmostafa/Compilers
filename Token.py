@@ -1,5 +1,16 @@
+from enum import Enum
+
+
+# enum for the token types
+class TokenType(Enum):
+    RESWORD = 1
+    SPSYMB = 2
+    ID = 3
+    NUM = 4
+
+
 class Token:
-    def __init__(self, string_value, token_type):
+    def __init__(self, string_value, token_type: TokenType):
         self._type = token_type
         self._stringValue = string_value
 
