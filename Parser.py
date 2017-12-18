@@ -103,10 +103,16 @@ class Parser:
         self.write_to_output_file('Expression')
 
     def simple_exp(self):
-        pass
+        self.term()
+        while self.current_token.string_value == '+' or self.current_token.string_value == '-':
+            self.match(self.current_token.string_value, TokenType.SPSYMB)
+            self.term()
+        self.write_to_output_file('Simple_Expression')
 
     def comparison_op(self):
-        pass
+        if self.current_token.string_value == '<' or self.current_token.string_value == '=':
+            self.match(self.current_token.string_value, TokenType.SPSYMB)
+        self.write_to_output_file('Comparator_Operator')
 
     def term(self):
         pass
