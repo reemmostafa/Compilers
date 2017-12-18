@@ -9,7 +9,6 @@ class Parser:
         scanner.set_files(input_path, 'scanner_output.txt')
         self.tokens = scanner.run()
         self.current_token = None
-        self.advance_input()
 
     def write_to_output_file(self,string):
         with open(self._output_path, 'a') as file:
@@ -23,6 +22,7 @@ class Parser:
         return True
 
     def start_parsing(self):
+        self.advance_input()
         self.program()
 
     def match(self, expected_token_value, expected_token_type):
