@@ -71,7 +71,9 @@ class Parser:
         pass
 
     def read_stmt(self):
-        pass
+        self.match('read', TokenType.RESWORD)
+        self.match('', TokenType.ID)
+        self.write_to_output_file('Read_Statement')
 
     def write_stmt(self):
         pass
@@ -99,7 +101,7 @@ class Parser:
 
 if __name__ == "__main__":
     input_file = 'tiny_sample_code.txt'
-    output_file = 'scanner_output.txt'
+    output_file = 'parser_output.txt'
     scanner = Scanner()
     parser = Parser(scanner, input_file, output_file)
     parser.start_parsing()
