@@ -105,7 +105,7 @@ class Parser:
     def simple_exp(self):
         self.term()
         while self.current_token.string_value == '+' or self.current_token.string_value == '-':
-            self.match(self.current_token.string_value, TokenType.SPSYMB)
+            self.add_op()
             self.term()
         self.write_to_output_file('Simple_Expression')
 
@@ -117,7 +117,7 @@ class Parser:
     def term(self):
         self.factor()
         while self.current_token.string_value == '*' or self.current_token.string_value == '/':
-            self.match(self.current_token.string_value, TokenType.SPSYMB)
+            self.mul_op()
             self.factor()
         self.write_to_output_file('Term')
 
