@@ -26,7 +26,7 @@ class Parser:
         self.program()
 
     def match(self, expected_token_value, expected_token_type):
-        if expected_token_type == TokenType.ID:
+        if expected_token_type == TokenType.ID or expected_token_type == TokenType.NUM:
             if expected_token_type == self.current_token.token_type:
                 self.advance_input()
             else:
@@ -115,13 +115,28 @@ class Parser:
         self.write_to_output_file('Comparator_Operator')
 
     def term(self):
-        pass
+        self.factor()
+        while self.current_token.string_value == '*' or self.current_token.string_value == '/':
+            self.match(self.current_token.string_value, TokenType.SPSYMB)
+            self.factor()
+        self.write_to_output_file('Term_Operator')
 
     def add_op(self):
-        pass
+        if self.current_token.string_value == '+' or self.current_token.string_value == '-':
+            self.match(self.current_token.string_value, TokenType.SPSYMB)
+        self.write_to_output_file('Add_Operator')
 
     def factor(self):
-        pass
+        if self.current_token.string_value == '(':
+            self.match('(', TokenType.SPSYMB)
+            self.exp()
+            self.match(')', TokenType.SPSYMB)
+        elif self.current_token.token_type == TokenType.NUM:
+            self.match('', TokenType.NUM)
+        elif self.current_token.token_type == TokenType.ID:
+            self.match('', TokenType.ID)
+        self.write_to_output_file('Factor_Operator')
+
 
     def mul_op(self):
         pass
