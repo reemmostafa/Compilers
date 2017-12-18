@@ -25,8 +25,17 @@ class Parser:
     def start_parsing(self):
         self.program()
 
-    def match(self,expected_token):
-        pass
+    def match(self, expected_token_value, expected_token_type):
+        if expected_token_type == TokenType.ID:
+            if expected_token_type == self.current_token.token_type:
+                self.advance_input()
+            else:
+                raise ValueError('match error')
+        else:
+            if expected_token_value == self.current_token.string_value:
+                self.advance_input()
+            else:
+                raise ValueError('match error')
 
     def program(self):
         self.stmt_sequence()
@@ -35,7 +44,7 @@ class Parser:
     def stmt_sequence(self):
         self.statement()
         while self.current_token.string_value == ';':
-            self.match(';')
+            self.match(';', TokenType.SPSYMB)
             self.statement()
         self.write_to_output_file('Statement_Sequence')
 
@@ -51,7 +60,6 @@ class Parser:
         elif self.current_token.string_value == 'write':
             self.write_stmt()
         self.write_to_output_file('Statement')
-
 
     def if_stmt(self):
         pass
