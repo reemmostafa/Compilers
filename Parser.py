@@ -2,15 +2,20 @@ from Scanner import Scanner
 
 
 class Parser:
-    def __init__(self, Scanner, input_path='',output_path=''):
+    def __init__(self, Scanner, input_path='', output_path=''):
         self._input_path = input_path
         self._output_path = output_path
-        Scanner.set_files(input_path)
+        Scanner.set_files(input_path, 'scanner_output.txt')
         self.tokens = Scanner.run()
-        self.current_token = self.tokens.__next__()
+        self.current_token = None
+        self.advance_input()
 
     def advance_input(self):
-        pass
+        try:
+            self.current_token = self.tokens.__next__()
+        except StopIteration:
+            return False
+        return True
 
     def start_parsing(self):
         self.program()
@@ -19,7 +24,9 @@ class Parser:
         pass
 
     def program(self):
-        pass
+        self.stmt_sequence()
+        with open(self._output_path, 'a') as file:
+            file.write('Program Found\n')
 
     def stmt_sequence(self):
         pass
