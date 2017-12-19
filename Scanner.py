@@ -116,7 +116,8 @@ class Scanner:
 
             if tokentype == TokenType.ID and token in reserved_words:
                 tokentype = TokenType.RESWORD
-            self.write_token(token, tokentype)
+            if token and tokentype:
+                self.write_token(token, tokentype)
             yield Token(token, tokentype)
 
 
